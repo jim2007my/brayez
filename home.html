@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>الرئيسية | برايز</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Cairo',sans-serif;
+  background:#f3f3f3;
+  min-height:100vh;
+  padding-bottom:95px;
+}
+
+/* ===== HEADER ===== */
+.header{
+  background:#6f4bd8;
+  color:#fff;
+  padding:25px 20px 55px;
+  border-bottom-left-radius:35px;
+  border-bottom-right-radius:35px;
+  position:relative;
+  overflow:hidden;
+}
+
+.header::before,
+.header::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+}
+.header::before{top:-80px;right:-80px}
+.header::after{bottom:-100px;left:-80px}
+
+/* top row */
+.top-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* greeting */
+.greeting-inline span{
+  font-size:13px;
+  opacity:.9;
+}
+.greeting-inline strong{
+  font-size:18px;
+  font-weight:900;
+}
+
+/* notification */
+.icon{
+  width:42px;
+  height:42px;
+  background:rgba(255,255,255,0.18);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ===== CONTENT ===== */
+.content{
+  padding:30px;
+  text-align:center;
+  color:#999;
+}
+
+.loader{
+  width:26px;
+  height:26px;
+  border:3px solid #ddd;
+  border-top-color:#6f4bd8;
+  border-radius:50%;
+  margin:60px auto;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* ===== BOTTOM NAV (PRO) ===== */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  right:0;
+  left:0;
+  background:#fff;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0 10px;
+  z-index:10;
+  box-shadow:0 -5px 20px rgba(0,0,0,.05);
+}
+
+.nav-item{
+  text-align:center;
+  font-size:11px;
+  color:#999;
+  transition:.3s;
+}
+
+.nav-item .circle{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  background:#f3f3f3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 5px;
+  transition:.3s;
+}
+
+.nav-item svg{
+  width:22px;
+  height:22px;
+  fill:#888;
+  transition:.3s;
+}
+
+.nav-item.active{
+  color:#6f4bd8;
+}
+
+.nav-item.active .circle{
+  background:#6f4bd8;
+  transform:translateY(-8px);
+  box-shadow:0 10px 25px rgba(111,75,216,.35);
+}
+
+.nav-item.active svg{
+  fill:#fff;
+}
+
+
+/* منع تحديد وتظليل النص */
+*{
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  user-select: none;
+}
+
+.contest-card{
+  background:#fff;
+  border-radius:25px;
+  padding:20px;
+  max-width:380px;
+  margin:0 auto;
+  box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.contest-card img{
+  width:65%;
+  border-radius:18px;
+  margin-bottom:15px;
+}
+
+.contest-title{
+  font-size:16px;
+  font-weight:900;
+  color:#333;
+  margin-bottom:15px;
+}
+
+.timer{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.time-box{
+  background:#f3f3f3;
+  border-radius:14px;
+  padding:8px 6px;
+  width:22%;
+}
+
+.time-box span{
+  display:block;
+  font-weight:900;
+  font-size:16px;
+  color:#6f4bd8;
+}
+
+.time-box small{
+  font-size:11px;
+  color:#777;
+}
+
+.participants{
+  font-size:14px;
+  color:#666;
+  margin-bottom:15px;
+}
+
+.join-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:18px;
+  background:#6f4bd8;
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.how-to-join{
+  font-size:13px;
+  color:#927dd0;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:12px;
+  margin-bottom:15px;  /* أضف هذا السطر */
+}
+
+.steps{
+  background:#e3dbfc;
+  border-radius:16px;
+  padding:14px;
+  margin-top:10px;
+  margin-bottom:15px;  /* أضف هذا */
+  font-size:13px;
+  color:#555;
+  display:none;
+  animation:fade .3s ease;
+}
+
+.steps ol{
+  padding-right:18px;
+}
+
+.steps li{
+  margin-bottom:6px;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.price{
+  font-size:15px;
+  color:#333;
+  margin-bottom:15px;
+  font-weight:700;
+}
+.price strong{
+  color:#6f4bd8;
+}
+
+.participants strong{
+  font-size:15px;
+  font-weight:900;
+  color:#6f4bd8;
+}
+
+.participants{
+  font-size:15px;   /* نفس حجم مبلغ الاشتراك */
+  font-weight:700;
+  color:#333;
+}
+
+.join-btn.disabled{
+  background:#bbb;
+  cursor:not-allowed;
+  box-shadow:none;
+}
+
+.joined-box{
+  background:#eaf7f1;
+  border:1.5px solid #b9e8d3;
+  border-radius:18px;
+  padding:14px;
+  text-align:center;
+  color:#0f9d58;
+  font-weight:900;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:10px;
+}
+
+.joined-box svg{
+  width:20px;
+  height:20px;
+  fill:#0f9d58;
+}
+
+.joined-box.calm{
+  background:#f6f4ff;
+  border:1px solid #ded8fb;
+  border-radius:18px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  color:#6f4bd8;
+  font-size:14px;
+  font-weight:800;
+}
+
+.joined-box.calm svg{
+  width:20px;
+  height:20px;
+  fill:#6f4bd8;
+}
+
+.ended-text{
+  background:#f6f4ff;
+  border:1.5px solid #ded8fb;
+  color:#6f4bd8;
+  font-weight:900;
+  font-size:16px;
+  padding:18px 16px;
+  border-radius:20px;
+  text-align:center;
+  margin-top:18px;
+  animation:endedPop .6s ease;
+}
+
+@keyframes endedPop{
+  0%{
+    opacity:0;
+    transform:scale(.9) translateY(10px);
+  }
+  60%{
+    opacity:1;
+    transform:scale(1.05) translateY(-4px);
+  }
+  100%{
+    transform:scale(1) translateY(0);
+  }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="top-row">
+
+    <div class="greeting-inline">
+      <span id="welcomeText"></span>
+      <strong>أهلاً بيك</strong>
+    </div>
+
+    <div class="icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+        <path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Z"/>
+        <path d="M18 16V11a6 6 0 1 0-12 0v5l-2 2v1h18v-1l-2-2Z"/>
+      </svg>
+    </div>
+
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="contest-card" id="current-contest">
+    <img src="https://m.media-amazon.com/images/I/61bjBijQIXL._AC_UL320_.jpg" alt="جائزة">
+
+    <div class="contest-title">
+      مسابقة هاتف  iPhone 17 Pro Max
+    </div>
+
+    <div class="timer">
+      <div class="time-box"><span id="days">0</span><small>يوم</small></div>
+      <div class="time-box"><span id="hours">0</span><small>ساعة</small></div>
+      <div class="time-box"><span id="minutes">0</span><small>دقيقة</small></div>
+      <div class="time-box"><span id="seconds">0</span><small>ثانية</small></div>
+    </div>
+
+    <div class="participants">
+       عدد المشتركين <strong id="participantsCount">0</strong>👥
+    </div>
+
+    <div class="price">
+  مبلغ الاشتراك <strong>25.00 جنيه</strong>
+</div>
+
+<div class="how-to-join" onclick="toggleSteps()">
+  تعرف على كيفية الاشتراك
+</div>
+
+<div class="steps" id="stepsBox">
+  <ol>
+    <li>اضغط على زر <strong>اشترك الآن</strong></li>
+    <li>سيتم توجيهك مباشرة إلى صفحة الدفع</li>
+    <li>أكمل البيانات المطلوبة وقم بتحويل الاموال لتأكيد الاشتراك</li>
+    <li>اضغط تأكيد الدفع لإتمام العملية</li>
+  </ol>
+</div>
+
+<div id="joinArea">
+  <button class="join-btn" id="joinBtn" onclick="window.location.href='payment.html'">
+    اشترك الآن
+  </button>
+</div>
+
+
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+<div class="nav-item" onclick="location.href='contests.html'">
+  <div class="circle">
+    <svg viewBox="0 0 24 24">
+      <path d="M18 2H6v2H3v3c0 3.3 2.7 6 6 6 .6 1.5 1.8 2.7 3.4 3.2V19H8v3h8v-3h-4v-2.8c1.6-.5 2.8-1.7 3.4-3.2 3.3 0 6-2.7 6-6V4h-3V2Z"/>
+    </svg>
+  </div>
+  المسابقات
+</div>
+
+
+  <div class="nav-item active">
+    <div class="circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3 2 12h3v8h6v-5h2v5h6v-8h3Z"/>
+      </svg>
+    </div>
+    الرئيسية
+  </div>
+
+<div class="nav-item" onclick="window.location.href='settings.html'">
+  <div class="circle">
+    <svg viewBox="0 0 24 24">
+      <path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7.2 7.2 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7.2 7.2 0 0 0-1.7 1l-2.3-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7.2 7.2 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7.2 7.2 0 0 0 1.7-1l2.3 1 2-3.4Zm-7.4 2.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Z"/>
+    </svg>
+  </div>
+  الإعدادات
+</div>
+
+</div>
+
+<script>
+const contestId = "iphone17"; // ID المسابقة الحالية
+
+if(localStorage.getItem("loggedIn") !== "true"){
+  window.location.href = "login.html";
+}
+
+const userName = localStorage.getItem("userName") || "مستخدم";
+document.getElementById("welcomeText").innerText = `ازيك يا ${userName}`;
+function openLogoutModal(){
+  document.getElementById("logoutModal").style.display = "flex";
+}
+
+function closeLogoutModal(){
+  document.getElementById("logoutModal").style.display = "none";
+}
+
+function logout(){
+  localStorage.removeItem("loggedIn");
+  localStorage.removeItem("userName");
+  window.location.href = "login.html";
+}
+
+const endDate = new Date("2026-01-25T23:59:59").getTime();
+const joinArea = document.getElementById("joinArea");
+const priceDiv = document.querySelector(".price");
+const howToJoinDiv = document.querySelector(".how-to-join");
+const stepsBox = document.getElementById("stepsBox");
+
+if(localStorage.getItem("joinedContest_" + contestId) === "true"){
+  // إخفاء مبلغ الاشتراك وشرح الاشتراك
+  if(priceDiv) priceDiv.style.display = "none";
+  if(howToJoinDiv) howToJoinDiv.style.display = "none";
+  if(stepsBox) stepsBox.style.display = "none";
+
+  // عرض زر "تم الإشتراك بالفعل"
+  joinArea.innerHTML = `
+    <div class="joined-box calm">
+      <span>تم الإشتراك بالفعل</span>
+    </div>
+  `;
+} else {
+  // لو مش مشترك، نعرض زر الاشتراك فقط
+  joinArea.innerHTML = `
+    <button class="join-btn" id="joinBtn" onclick="window.location.href='payment.html'">
+      اشترك الآن
+    </button>
+  `;
+}
+
+
+
+const timerInterval = setInterval(() => {
+  const now = new Date().getTime();
+  let diff = endDate - now;
+
+  if (diff <= 0) {
+    diff = 0;
+
+    // تصفير العداد
+    document.getElementById("days").innerText = 0;
+    document.getElementById("hours").innerText = 0;
+    document.getElementById("minutes").innerText = 0;
+    document.getElementById("seconds").innerText = 0;
+
+// إخفاء كل عناصر الاشتراك
+if(priceDiv) priceDiv.style.display = "none";
+if(howToJoinDiv) howToJoinDiv.style.display = "none";
+if(stepsBox) stepsBox.style.display = "none";
+if(joinArea) joinArea.style.display = "none";
+
+// عرض رسالة أنيميشن انتهاء المسابقة
+document.getElementById("current-contest").insertAdjacentHTML(
+  "beforeend",
+  `
+  <div class="ended-text">
+     تم إغلاق المسابقة<br>
+    سيتم إعلان الفائز قريبًا...⏳
+  </div>
+  `
+);
+
+
+
+    clearInterval(timerInterval);
+    return;
+  }
+
+  document.getElementById("days").innerText =
+    Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  document.getElementById("hours").innerText =
+    Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+  document.getElementById("minutes").innerText =
+    Math.floor((diff / (1000 * 60)) % 60);
+
+  document.getElementById("seconds").innerText =
+    Math.floor((diff / 1000) % 60);
+
+}, 1000);
+
+function toggleSteps(){
+  const box = document.getElementById("stepsBox");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+const participantsEl = document.getElementById("participantsCount");
+
+// لو مفيش عدد محفوظ، نبدأ بـ 47
+let participants = localStorage.getItem("participants_" + contestId);
+
+if(participants === null){
+  participants = 47;
+  localStorage.setItem("participants_" + contestId, participants);
+}
+
+participantsEl.innerText = participants;
+
+</script>
+
+<!-- Logout Modal -->
+<div id="logoutModal" style="
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+">
+
+  <div style="
+    background:#fff;
+    width:90%;
+    max-width:320px;
+    border-radius:22px;
+    padding:22px;
+    text-align:center;
+    animation:pop .3s ease;
+  ">
+    <h3 style="color:#6f4bd8;margin-bottom:10px;">تسجيل الخروج</h3>
+    <p style="color:#777;font-size:14px;margin-bottom:20px;">
+      هل أنت متأكد إنك عايز تسجل خروج؟
+    </p>
+
+    <div style="display:flex;gap:10px;">
+      <button onclick="closeLogoutModal()" style="
+        flex:1;
+        padding:12px;
+        border:none;
+        border-radius:14px;
+        background:#eee;
+        font-weight:700;
+        cursor:pointer;
+      ">إلغاء</button>
+
+      <button onclick="logout()" style="
+        flex:1;
+        padding:12px;
+        border:none;
+        border-radius:14px;
+        background:#ff4d4d;
+        color:#fff;
+        font-weight:700;
+        cursor:pointer;
+      ">خروج</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

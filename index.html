@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>برايز</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Cairo', sans-serif;
+  background:#6f4bd8;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* slide */
+.slide{
+  position:absolute;
+  inset:0;
+  padding:20px 18px env(safe-area-inset-bottom);
+  display:flex;
+  justify-content:center;
+  opacity:0;
+  transform:translateX(100%);
+  transition:0.7s ease;
+}
+
+.slide.active{
+  opacity:1;
+  transform:translateX(0);
+}
+
+/* inner content */
+.slide-content{
+  width:100%;
+  max-width:420px;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  text-align:center;
+}
+
+/* illustration */
+.illustration{
+  width:100%;
+  max-width:260px;
+  margin-top:20px;
+}
+.illustration img{
+  width:100%;
+  max-height:35vh;
+  object-fit:contain;
+}
+
+/* text */
+.text{
+  padding:0 10px;
+}
+h1{
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+p{
+  font-size:15px;
+  line-height:1.8;
+  opacity:0.95;
+}
+
+/* play button */
+.play-box{
+  margin-bottom:25px;
+}
+.play-btn{
+  width:70px;
+  height:70px;
+  border-radius:22px;
+  background:#9be7ff;
+  color:#6f4bd8;
+  font-size:28px;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+  transition:0.3s;
+}
+.play-btn:hover{transform:scale(1.08);}
+
+.play-text{
+  margin-top:10px;
+  font-weight:700;
+  font-size:14px;
+}
+
+/* last slide - نفس مقاس زر التشغيل */
+.slide.last .play-btn{
+  width:70px;
+  height:70px;
+  padding:0;
+  font-size:14px;
+  font-weight:700;      /* Bold */
+  border-radius:22px;   /* نفس الشكل */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* منع تحديد وتظليل النص */
+*{
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  user-select: none;
+}
+
+/* ===== BACKGROUND DECOR CIRCLES ===== */
+body::before,
+body::after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  z-index:0;
+}
+
+body::before{
+  top:-110px;
+  right:-110px;
+}
+
+body::after{
+  bottom:-140px;
+  left:-110px;
+}
+
+/* كل المحتوى فوق الدواير */
+.slide{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- Slide 1 -->
+<div class="slide active">
+  <div class="slide-content">
+
+    <div class="illustration">
+      <img src="image/Plain credit card-pana.png">
+    </div>
+
+    <div class="text">
+      <h1>مسابقات وجوايز</h1>
+      <p>بتشترك في المسابقة
+وتدخل سحب على جوايز كبيرة
+بمبلغ بسيط وخطوات سهلة.
+</p>
+    </div>
+
+    <div class="play-box">
+      <button class="play-btn">▶</button>
+      <div class="play-text">ابدأ دلوقتي</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide">
+  <div class="slide-content">
+
+    <div class="illustration">
+      <img src="/image/Finance app-pana.png">
+    </div>
+
+    <div class="text">
+      <h1>فرصتك واضحة</h1>
+      <p>
+        كل مسابقة ليها عدد مشتركين محدد
+        ووقت محدد
+        عند اكتمال العدد أو انتهاء الوقت
+        يتم اختيار شخص من المشتركين بعشوائية.
+
+      </p>
+    </div>
+
+    <div class="play-box">
+      <button class="play-btn">▶</button>
+      <div class="play-text">التالي</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide">
+  <div class="slide-content">
+
+    <div class="illustration">
+      <img src="/image/mobile banking-amico.png">
+    </div>
+
+    <div class="text">
+      <h1>سحب مباشر</h1>
+      <p>
+السحب بيتم بنظام عشوائي
+والفائز بيتم التواصل معاه فورًا.
+      </p>
+    </div>
+
+    <div class="play-box">
+      <button class="play-btn">▶</button>
+      <div class="play-text">التالي</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide last">
+  <div class="slide-content">
+
+    <div class="illustration">
+      <img src="/image/Investment data-rafiki.png">
+    </div>
+
+    <div class="text">
+      <h1>نظام كامل موثوق</h1>
+      <p>
+نظام مسابقات سريع
+تسجيل سهل، اشتراك سريع
+وسحب واضح بكل شفافية.
+      </p>
+    </div>
+
+    <div class="play-box">
+      <button class="play-btn" onclick="finishOnboarding()">
+        ابدأ الآن
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const buttons = document.querySelectorAll('.play-btn');
+let index = 0;
+
+buttons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(index < slides.length - 1){
+      slides[index].classList.remove('active');
+      index++;
+      slides[index].classList.add('active');
+    }
+  });
+});
+
+function finishOnboarding(){
+  localStorage.setItem("onboardingDone", "true");
+  window.location.href = "login.html";
+}
+
+/* لو المستخدم عدى قبل كده */
+if(localStorage.getItem("onboardingDone") === "true"
+   && localStorage.getItem("loggedIn") === "true"){
+  window.location.href = "home.html";
+}
+</script>
+
+</body>
+</html>

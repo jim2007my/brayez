@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>المسابقات | برايز</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Cairo',sans-serif;
+  background:#f4f5f7;
+  padding-bottom:95px;
+}
+
+/* ===== HEADER ===== */
+.header{
+  background:#6f4bd8;
+  color:#fff;
+  padding:25px 20px 55px;
+  border-bottom-left-radius:35px;
+  border-bottom-right-radius:35px;
+  position:relative;
+  z-index:1;
+}
+
+
+.header h2{
+  font-size:20px;
+  font-weight:900;
+}
+
+/* ===== CONTESTS ===== */
+.contests{
+  margin-top:-30px;
+  padding:15px;
+  display:grid;
+  gap:15px;
+}
+
+.card{
+  background:#fff;
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+  display:flex;
+  gap:14px;
+  align-items:center;
+  transition:.3s;
+  position:relative;
+  z-index:5;
+}
+
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.card img{
+  width:70px;
+  height:70px;
+  border-radius:16px;
+  object-fit:cover;
+}
+
+.card-info{
+  flex:1;
+}
+
+.card-info h3{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:6px;
+}
+
+.card-info p{
+  font-size:13px;
+  color:#777;
+  margin-bottom:8px;
+}
+
+.badge{
+  display:inline-block;
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:20px;
+  background:#f0ebff;
+  color:#6f4bd8;
+  font-weight:700;
+}
+
+.btn{
+  background:#6f4bd8;
+  color:#fff;
+  border:none;
+  padding:10px 14px;
+  border-radius:14px;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  right:0;
+  left:0;
+  background:#fff;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0 10px;
+  z-index:10;
+  box-shadow:0 -5px 20px rgba(0,0,0,.05);
+}
+
+.nav-item{
+  text-align:center;
+  font-size:11px;
+  color:#999;
+}
+
+.nav-item .circle{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  background:#f3f3f3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 5px;
+}
+
+.nav-item svg{
+  width:22px;
+  height:22px;
+  fill:#888;
+}
+
+.nav-item.active{
+  color:#6f4bd8;
+}
+
+.nav-item.active .circle{
+  background:#6f4bd8;
+  transform:translateY(-8px);
+  box-shadow:0 10px 25px rgba(111,75,216,.35);
+}
+
+.nav-item.active svg{
+  fill:#fff;
+}
+
+/* منع تحديد وتظليل النص */
+*{
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+  user-select: none;
+}
+/* ---------------------------------------- مسابقة منتهية ------------------------------*/
+.card.ended{
+  opacity:.85;
+  background:#fafafa;
+}
+
+.ended-badge{
+  background:#e8ffe8;
+  color:#1e8e3e;
+}
+
+.winner{
+  margin-top:6px;
+  font-size:12px;
+  font-weight:700;
+  color:#444;
+}
+
+.winner span{
+  color:#6f4bd8;
+}
+
+
+/* ===== HEADER DECOR CIRCLES ===== */
+.header{
+  position:relative;
+  overflow:hidden;
+}
+
+.header::before,
+.header::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  z-index:0;
+}
+
+.header::before{
+  top:-90px;
+  right:-90px;
+}
+
+.header::after{
+  bottom:-110px;
+  left:-90px;
+}
+
+/* علشان المحتوى يطلع فوق الدواير */
+.header h2{
+  position:relative;
+  z-index:1;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h2>المسابقات</h2>
+</div>
+
+<!-- CONTEST LIST -->
+<div class="contests">
+
+  <!-- مسابقة -->
+  <div class="card">
+    <div class="card-info">
+      <h3>مسابقة هاتف  iPhone 17 Pro Max</h3>
+      <p>شارك وخليك واحد من الكسبانين</p>
+      <span class="badge">🎁 جائزة كبرى</span>
+    </div>
+<button class="btn" onclick="location.href='home.html#current-contest'">
+  شارك الآن
+</button>
+  </div>
+
+  <!-- مسابقة رمضان -->
+  <div class="card">
+    <div class="card-info">
+      <h3>مسابقة رمضان 🌙</h3>
+      <p>جوائز يومية وسحب كبير آخر الشهر</p>
+      <span class="badge">⏳ قريباً</span>
+    </div>
+    <button class="btn" disabled style="opacity:.6">قريباً</button>
+  </div>
+
+  <!---------------------------------- مسابقة منتهية -------------------------------------------------->
+<div class="card ended">
+  <div class="card-info">
+    <h3>مسابقة samsung galaxy s25 ultra 📱</h3>
+    <p>تم السحب بنجاح</p>
+    <span class="badge ended-badge">✅ انتهت</span>
+
+    <div class="winner">
+      🏆 الفائز: <span>محمد !!!!!</span><br>
+      📍 العنوان: <span> محافظة المنوفية - !!!!! - !!!!!</span>
+    </div>
+  </div>
+
+  <button class="btn" disabled style="opacity:.6">
+    منتهية
+  </button>
+</div>
+
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <div class="nav-item active">
+    <div class="circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 2H6v2H3v3c0 3.3 2.7 6 6 6 .6 1.5 1.8 2.7 3.4 3.2V19H8v3h8v-3h-4v-2.8c1.6-.5 2.8-1.7 3.4-3.2 3.3 0 6-2.7 6-6V4h-3V2Z"/>
+      </svg>
+    </div>
+    المسابقات
+  </div>
+
+  <div class="nav-item" onclick="location.href='home.html'">
+    <div class="circle">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3 2 12h3v8h6v-5h2v5h6v-8h3Z"/>
+      </svg>
+    </div>
+    الرئيسية
+  </div>
+
+<div class="nav-item" onclick="location.href='settings.html'">
+  <div class="circle">
+    <svg viewBox="0 0 24 24">
+      <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.62l-1.92-3.32c-.11-.21-.36-.3-.58-.22l-2.39.96a7.14 7.14 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 13.9 2h-3.8a.5.5 0 0 0-.49.41l-.36 2.54c-.58.23-1.12.54-1.63.94l-2.39-.96c-.22-.08-.47.01-.58.22L2.73 8.47c-.11.21-.06.48.12.62l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94l-2.03 1.58a.5.5 0 0 0-.12.62l1.92 3.32c.11.21.36.3.58.22l2.39-.96c.51.4 1.05.71 1.63.94l.36 2.54c.05.24.25.41.49.41h3.8c.24 0 .45-.17.49-.41l.36-2.54c.58-.23 1.12-.54 1.63-.94l2.39.96c.22.08.47-.01.58-.22l1.92-3.32a.5.5 0 0 0-.12-.62l-2.03-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5Z"/>
+    </svg>
+  </div>
+  الإعدادات
+</div>
+
+
+</div>
+
+<script>
+if(localStorage.getItem("loggedIn") !== "true"){
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
