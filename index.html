@@ -655,20 +655,6 @@
             </div>
 
             <div id="modalForm">
-                <div class="input-group">
-                    <label>الاسم بالكامل</label>
-                    <input class="glass-input" id="mName" type="text" placeholder="الاسم ثلاثي" />
-                </div>
-                
-                <div class="input-group">
-                    <label>العنوان التفصيلي</label>
-                    <input class="glass-input" id="mAddress" type="text" placeholder="المحافظة - المركز" />
-                </div>
-
-                <div class="input-group">
-                    <label>رقم التواصل (واتساب)</label>
-                    <input class="glass-input" id="mPhone" type="tel" placeholder="01xxxxxxxxx" maxlength="11" />
-                </div>
 
                 <div class="input-group" style="margin-top:24px;">
                     <label style="color: var(--accent-1); text-align: center;">📲 حول قيمة الاشتراك على هذا الرقم</label>
@@ -754,9 +740,6 @@
         const modalSuccess = document.getElementById("modalSuccess");
         const submitBtn = document.getElementById("submitPaymentBtn");
 
-        const mName = document.getElementById("mName");
-        const mAddress = document.getElementById("mAddress");
-        const mPhone = document.getElementById("mPhone");
         const mFromPhone = document.getElementById("mFromPhone");
         const mScreenshot = document.getElementById("mScreenshot");
         const screenshotName = document.getElementById("screenshotName");
@@ -770,7 +753,7 @@
             submitBtn.textContent = "تأكيد الدفع والاشتراك";
             
             // تصفير الحقول
-            mName.value = ""; mAddress.value = ""; mPhone.value = ""; mFromPhone.value = ""; mScreenshot.value = "";
+            mFromPhone.value = ""; mScreenshot.value = "";
             screenshotName.textContent = "";
             validateModal();
         }
@@ -786,21 +769,13 @@
 
         /* ── التحقق من الحقول ── */
         function validateModal() {
-            const nameOk = mName.value.trim().length >= 3;
-            const addrOk = mAddress.value.trim().length >= 3;
-            const phoneOk = mPhone.value.trim().length === 11 && mPhone.value.startsWith("01");
             const fromOk = mFromPhone.value.trim().length === 11 && mFromPhone.value.startsWith("01");
             const screenOk = mScreenshot.files.length > 0;
-            submitBtn.disabled = !(nameOk && addrOk && phoneOk && fromOk && screenOk);
+            submitBtn.disabled = !(fromOk && screenOk);
         }
 
-        [mName, mAddress, mPhone, mFromPhone].forEach(el => {
-            el.addEventListener("input", validateModal);
-        });
+        mFromPhone.addEventListener("input", validateModal);
 
-        mPhone.addEventListener("input", function() {
-            this.value = this.value.replace(/\D/g, "").slice(0, 11); validateModal();
-        });
         mFromPhone.addEventListener("input", function() {
             this.value = this.value.replace(/\D/g, "").slice(0, 11); validateModal();
         });
